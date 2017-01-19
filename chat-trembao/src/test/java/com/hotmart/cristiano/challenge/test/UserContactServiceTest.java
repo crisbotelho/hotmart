@@ -11,28 +11,29 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import com.hotmart.cristiano.challenge.model.User;
+import com.hotmart.cristiano.challenge.model.UserContact;
+import com.hotmart.cristiano.challenge.service.UserContactService;
 import com.hotmart.cristiano.challenge.service.UserService;
 import com.hotmart.cristiano.challenge.util.Criptografia;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:app-context.xml"})
-public class UserServiceTest {
+public class UserContactServiceTest {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserContactService userContactService;
 	
 	
 	@Test
 	public void executeTest() {
-		creatUSer();
-		List<User> users = userService.getAll();
-		Assert.notEmpty(users);
-		User user = userService.getByLogin("cris");
-		Assert.notNull(user);
-		Assert.isTrue(user.getLogin().equals("cris"));
+		creatUSerContact();
+		List<UserContact> contacts = userContactService.getAll();
+		Assert.notEmpty(contacts);
 	}
 	
-	public void creatUSer(){
+	private void creatUSerContact() {
 		User userCris = userService.getByLogin("cris");
 		if(userCris == null) {
 			userCris = new User();
@@ -42,7 +43,6 @@ public class UserServiceTest {
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
-			userService.save(userCris);
 		}
 		
 		User userFred = userService.getByLogin("fred");
@@ -54,10 +54,27 @@ public class UserServiceTest {
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
-			userService.save(userFred);
 		}
 		
+		User user3 = new User();
+		user3.setLogin("nic");
+		try {
+			user3.setPassword(Criptografia.criptografarSenha("1234567"));
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}	
+		
+		userService.save(user3);
+		
+		UserContact userContact = new UserContact();
+		userContact.setUser(userCris);
+		userContact.setContact(userFred);
+		
+		UserContact userContact2 = new UserContact();
+		userContact2.setUser(userCris);
+		userContact2.setContact(user3);
+		
+		userContactService.save(userContact);
+		userContactService.save(userContact2);
 	}
-	
-	
 }

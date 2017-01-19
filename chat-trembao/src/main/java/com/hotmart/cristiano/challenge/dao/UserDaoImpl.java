@@ -47,4 +47,18 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
+	public User getByLogin(String login) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM User WHERE login = :login ";
+		Query query = session.createQuery(hql);
+		query.setParameter("login", login);
+		User user = null;
+		try {
+			user = (User) query.uniqueResult();
+		} catch (NonUniqueResultException exc) {
+			user = null;
+		}
+		return user;
+	}
+
 }

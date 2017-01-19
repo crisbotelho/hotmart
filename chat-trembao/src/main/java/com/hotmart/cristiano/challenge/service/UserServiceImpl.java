@@ -29,4 +29,8 @@ public class UserServiceImpl implements UserService {
 		return userDao.getById(id);
 	}
 
+	public User getByLogin(String login) {
+		return userDao.getByLogin(login);
+	}
+
 }
