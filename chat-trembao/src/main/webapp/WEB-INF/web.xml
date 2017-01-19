@@ -33,7 +33,7 @@
                 </servlet-class>
 		<init-param>
 		     <param-name>com.sun.jersey.config.property.packages</param-name>
-		     <param-value>br.com.avenuecode.cristiano.controller</param-value>
+		     <param-value>com.hotmart.cristiano.challenge.controller</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
