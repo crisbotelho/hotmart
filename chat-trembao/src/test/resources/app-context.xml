@@ -32,8 +32,8 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses" >
 			<list>
-				<value>br.com.avenuecode.cristiano.model.Product</value>
-				<value>br.com.avenuecode.cristiano.model.Image</value>
+				<value>com.hotmart.cristiano.challenge.model.User</value>
+				<value>com.hotmart.cristiano.challenge.model.UserContact</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
