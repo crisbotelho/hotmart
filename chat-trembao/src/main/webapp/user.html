@@ -1,0 +1,89 @@
+<html ng-app="cadastrousuario">
+	<head>
+		<meta charset="UTF-8">
+		<title>Cadastro de Usuário</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"></link>
+		<script src="js/angular.js"></script>
+		<script>
+			angular.module("cadastrousuario", []);			
+			angular.module("cadastrousuario").controller("cadastrousuarioCtrl", function($scope, $http){
+				$scope.app = "Cadastro de Usuário";
+				$scope.users = [];
+				$scope.addUser = function(user) {
+					$http.post("http://localhost:8080/chat-trembao/rest/user/adduser", user).then(function(response) {
+						console.log("Successful: response from submitting data to server was: " + response);
+ 						$scope.users.push(angular.copy(user));
+ 						$scope.message = "Usuário " + user.login + " cadastrado com sucesso!";
+ 						delete $scope.user;
+					},
+					
+					function (response) {
+					      console.log("Error: response from submitting data to server was: " + response);
+
+					      //USING THE PROMISE REJECT FUNC TO CATCH ERRORS
+					      deferred.reject({
+					        data: response //RETURNING RESPONSE SINCE `DATA` IS NOT DEFINED
+					      });
+					
+					
+					
+					
+					
+// 					.error(function(data, status){
+// 						$scope.message = "Erro ao cadastrar usuário!: " + data;
+// 					});				
+					
+					});
+				};
+				
+			});
+		</script>
+		
+		<style>
+			.jumbotron{
+				width:600px;
+				text-align:center;
+				margin-top:20px;
+				margin-left:auto;
+				margin-right:auto;
+			}
+			
+			.table{
+				margin-top: 20px;
+				margin-bottom: 40px;
+			}
+			
+			.form-control{
+				margin-bottom:20px;
+			}
+		</style>
+	</head>
+	<body ng-controller = "cadastrousuarioCtrl">
+		<div class="jumbotron">
+			<h3>{{app}}</h3>
+			<div class="alert alert-success">
+				{{message}}
+			</div>
+			
+			<table class="table table-striped">
+				<tr>
+					<th>Usuário</th>
+					<th>Senha</th>
+				</tr>
+				<tr ng-repeat="user in users">
+					<td>{{user.login}}</td>
+					<td>{{user.password}}</td>
+				</tr>
+			</table>
+			<hr/>
+			<form name="userForm">
+				<input class="form-control" type="text" ng-model="user.login" placeholder="Usuário" ng-required="true"/>
+				<input class="form-control" type="password" ng-model="user.password" placeholder="Senha" ng-required="true"/>			
+			</form>
+			<div class="alert alert-danger" ng-show="userForm.$invalid">
+				Por favor, preencha os campos de Usuário e Senha!
+			</div>
+			<button class="btn btn-primary btn-block" ng-click="addUser(user)" ng-disabled="userForm.$invalid">Salvar</button>
+		</div>
+	</body>
+</html>

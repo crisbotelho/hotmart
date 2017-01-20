@@ -1,5 +1,6 @@
 package com.hotmart.cristiano.challenge.service;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hotmart.cristiano.challenge.dao.UserDao;
 import com.hotmart.cristiano.challenge.model.User;
+import com.hotmart.cristiano.challenge.util.Criptografia;
 
 @Service
 @Transactional(readOnly = true)
@@ -18,7 +20,16 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional(readOnly = false)
 	public void save(User user) {
-		userDao.save(user);
+		User existUser = userDao.getByLogin(user.getLogin());
+		if(existUser == null) {
+			try {
+				user.setPassword(Criptografia.criptografarSenha(user.getPassword()));
+				userDao.save(user);
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+			
+		}
 	}
 
 	public List<User> getAll() {
@@ -31,6 +42,17 @@ public class UserServiceImpl implements UserService {
 
 	public User getByLogin(String login) {
 		return userDao.getByLogin(login);
+	}
+
+	public User getByLoginAndPassword(String login, String password) {
+		User user = null;
+		try {
+			String passwordCriptografada = Criptografia.criptografarSenha(password);
+			user = userDao.getByLoginAndPassword(login, passwordCriptografada);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 
 }

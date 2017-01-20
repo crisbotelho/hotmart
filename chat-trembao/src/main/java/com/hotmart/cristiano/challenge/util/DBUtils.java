@@ -1,8 +1,12 @@
 package com.hotmart.cristiano.challenge.util;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 import javax.annotation.PostConstruct;
@@ -22,7 +26,9 @@ public class DBUtils {
 		try {
 			Connection connection = dataSource.getConnection();
 			Statement statement = connection.createStatement();
-			statement.execute("DROP TABLE IF EXISTS USER");
+			if(!existTable("USER", connection, statement)){
+//			statement.execute("DROP TABLE IF EXISTS USER");
+				System.out.println("Construindo base");
 			statement.executeUpdate(
 					"CREATE TABLE USER(" +
 							"ID INTEGER Primary key, " +
@@ -30,8 +36,10 @@ public class DBUtils {
 							"PASSWORD varchar(30) not null)" 
 					);
 			
+			}
 			
-			statement.execute("DROP TABLE IF EXISTS USER_CONTACT");
+			if(!existTable("USER_CONTACT", connection, statement)){
+//			statement.execute("DROP TABLE IF EXISTS USER_CONTACT");
 			statement.executeUpdate(
 					"CREATE TABLE USER_CONTACT(" +
 							"ID INTEGER Primary key, " +
@@ -43,11 +51,37 @@ public class DBUtils {
 							"REFERENCES USER (ID))" 
 					);
 			
+		}
+			
 			statement.close();
 			connection.close();
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
+	
+	public boolean existTable(String tableName, Connection con, Statement st) throws ClassNotFoundException, SQLException {
+//        List<String> list = new ArrayList<String>();
+		DatabaseMetaData dbm = con.getMetaData();
+		ResultSet tables = dbm.getTables(null, null, tableName, null);
+//        ResultSet rs = st.executeQuery("SELECT * FROM dbo.SYSOBJECTS WHERE XTYPE = 'U' AND NAME = 'USER'");
+        if(tables.next()){
+        	return true;
+        } else{
+        	return false;
+        }
+//        while (rs.next()) {
+//            String listofDatabases = rs.getString("TABLE_CAT");
+//            list.add(listofDatabases);
+//            System.out.println("database list: " + listofDatabases);
+//        }
+//        if (list.contains(nomeBD)) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+    }
 }

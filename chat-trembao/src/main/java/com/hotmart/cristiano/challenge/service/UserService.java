@@ -10,4 +10,5 @@ public interface UserService {
 	public List<User> getAll();
 	public User getById(Long id);
 	public User getByLogin(String login);
+	public User getByLoginAndPassword(String login, String password);
 }

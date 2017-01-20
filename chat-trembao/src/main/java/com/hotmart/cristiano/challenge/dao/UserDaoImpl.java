@@ -61,4 +61,19 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
+	public User getByLoginAndPassword(String login, String password) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM User WHERE login = :login AND password like :password ";
+		Query query = session.createQuery(hql);
+		query.setParameter("login", login);
+		query.setParameter("password", password);
+		User user = null;
+		try {
+			user = (User) query.uniqueResult();
+		} catch (NonUniqueResultException exc) {
+			user = null;
+		}
+		return user;
+	}
+
 }

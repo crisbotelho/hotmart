@@ -1,0 +1,24 @@
+<div ng-controller = "homeCtrl" class="jumbotron">
+	<h3>Principal</h3>
+	<div class="alert alert-success">
+		{{message}}
+	</div>
+	
+	<table class="table table-striped">
+		<tr>
+			<th>Contato</th>
+		</tr>
+		<tr ng-repeat="contact in contacts">
+			<td><button class="btn btn-primary" ng-click="openChat(contact.login)">{{contact.contactLogin}}</button></td>
+		</tr>
+	</table>
+	<hr/>
+	<form name="homeForm">
+		<input class="form-control" type="text" ng-model="contact.contactLogin" placeholder="Contato" ng-required="true"/>
+	</form>
+	<div class="alert alert-danger" ng-show="homeForm.$invalid">
+		Por favor, preencha o campo de Contato!
+	</div>
+	<button class="btn btn-primary btn-block" ng-click="addContact(contact)" ng-disabled="homeForm.$invalid">Adicionar</button>
+	<button class="btn btn-primary btn-block" ng-click="listContacts()" >Listar Contatos</button>
+</div>

@@ -1,6 +1,5 @@
 package com.hotmart.cristiano.challenge.test;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.junit.Test;
@@ -12,7 +11,6 @@ import org.springframework.util.Assert;
 
 import com.hotmart.cristiano.challenge.model.User;
 import com.hotmart.cristiano.challenge.service.UserService;
-import com.hotmart.cristiano.challenge.util.Criptografia;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:app-context.xml"})
@@ -20,8 +18,8 @@ public class UserServiceTest {
 
 	@Autowired
 	private UserService userService;
-	
-	
+
+
 	@Test
 	public void executeTest() {
 		creatUSer();
@@ -30,34 +28,33 @@ public class UserServiceTest {
 		User user = userService.getByLogin("cris");
 		Assert.notNull(user);
 		Assert.isTrue(user.getLogin().equals("cris"));
+		System.out.println("user: " + user);
+		User user2 = userService.getByLoginAndPassword("cris", "12345");
+		System.out.println(user2);
+		Assert.notNull(user2);
+		
+		User user3 = userService.getByLoginAndPassword("cris", "123456");
+		Assert.isNull(user3);
 	}
-	
+
 	public void creatUSer(){
 		User userCris = userService.getByLogin("cris");
 		if(userCris == null) {
 			userCris = new User();
 			userCris.setLogin("cris");
-			try {
-				userCris.setPassword(Criptografia.criptografarSenha("12345"));
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			}
+			userCris.setPassword("12345");
 			userService.save(userCris);
 		}
-		
+
 		User userFred = userService.getByLogin("fred");
 		if(userFred == null) {
 			userFred = new User();
 			userFred.setLogin("fred");
-			try {
-				userFred.setPassword(Criptografia.criptografarSenha("123456"));
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			}
+			userFred.setPassword("123456");
 			userService.save(userFred);
 		}
-		
+
 	}
-	
-	
+
+
 }

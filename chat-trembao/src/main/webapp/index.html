@@ -1,5 +1,41 @@
-<html>
-<body>
-<h2>Hello World!</h2>
-</body>
+<html ng-app="chattrembao">
+	<head>
+		<meta charset="UTF-8">
+		<title>Trem Bão/Entrar</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"></link>
+		<script src="js/angular.js"></script>
+		<script src="js/angular-route.js"></script>
+		<script src="js/module/app.js"></script>
+		<script src="js/config/config.js"></script>
+		<script src="js/controller/controller.js"></script>
+		<script src="js/controller/controllerHome.js"></script>
+		<script>
+						
+			
+		</script>
+		
+		<style>
+			.jumbotron{
+				width:600px;
+				text-align:center;
+				margin-top:20px;
+				margin-left:auto;
+				margin-right:auto;
+			}
+			
+			.table{
+				margin-top: 20px;
+				margin-bottom: 40px;
+			}
+			
+			.form-control{
+				margin-bottom:20px;
+			}
+		</style>
+	</head>
+	<body >
+		<div ng-include="'login.html'"></div>
+		<div ng-include="'home.html'"></div>
+		<div ng-include="'footer.html'"></div>
+	</body>
 </html>
