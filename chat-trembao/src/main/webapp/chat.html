@@ -1,0 +1,8 @@
+<div ng-controller = "homeCtrl" class="jumbotron">
+	<div id="msgContainer" style="overflow: auto;margin-bottom:20px;"></div>
+	<form name="chatForm">
+		<textArea id="message" class="form-control" type="text" ng-model="chatMessage" placeholder="Mensagem" ng-required="true">
+		</textArea>
+	</form>
+	<button class="btn btn-primary btn-block" ng-click="sendMessage()" ng-disabled="chatForm.$invalid">Enviar</button>
+</div>
