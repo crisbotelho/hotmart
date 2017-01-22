@@ -64,5 +64,9 @@ public class UserContactServiceImpl implements UserContactService {
 		
 		return contacts;
 	}
+
+	public UserContact getByUserAndContact(String userLogin, String contactLogin) {
+		return userContactDao.getByUserAndContact(userLogin, contactLogin);
+	}
 	
 }

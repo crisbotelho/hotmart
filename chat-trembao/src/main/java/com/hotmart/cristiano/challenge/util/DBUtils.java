@@ -54,6 +54,21 @@ public class DBUtils {
 			
 		}
 			
+			if(!existTable("HISTORY", connection, statement)){
+				statement.execute("DROP TABLE IF EXISTS HISTORY");
+				statement.executeUpdate(
+						"CREATE TABLE HISTORY(" +
+								"ID INTEGER Primary key, " +
+								"SENDER varchar(30) not null, " +
+								"RECEIVER varchar(30) not null, " +
+								"MESSAGE varchar(500) not null, " +
+								"USER_CONTACT_ID INTEGER not null, " +
+								"CONSTRAINT FK_HISTORY_USER_CONTACT FOREIGN KEY (USER_CONTACT_ID) " +
+								"REFERENCES USER_CONTACT (ID))" 
+						);
+				
+			}
+			
 			statement.close();
 			connection.close();
 		}
@@ -61,7 +76,7 @@ public class DBUtils {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 	
 	public boolean existTable(String tableName, Connection con, Statement st) throws ClassNotFoundException, SQLException {

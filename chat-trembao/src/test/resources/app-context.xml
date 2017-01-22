@@ -34,6 +34,7 @@
 			<list>
 				<value>com.hotmart.cristiano.challenge.model.User</value>
 				<value>com.hotmart.cristiano.challenge.model.UserContact</value>
+				<value>com.hotmart.cristiano.challenge.model.History</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

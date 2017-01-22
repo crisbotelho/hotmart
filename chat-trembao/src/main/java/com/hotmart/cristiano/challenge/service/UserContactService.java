@@ -11,4 +11,5 @@ public interface UserContactService {
 	public List<UserContact> getAll();
 	public UserContact getById(Long id);
 	public List<Contact> getContactByUser(String userLogin);
+	public UserContact getByUserAndContact(String userLogin, String contactLogin);
 }

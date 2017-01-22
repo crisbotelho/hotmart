@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import com.hotmart.cristiano.challenge.enumtype.StatusType;
 import com.hotmart.cristiano.challenge.model.User;
 import com.hotmart.cristiano.challenge.service.UserService;
 
@@ -43,6 +44,7 @@ public class UserServiceTest {
 			userCris = new User();
 			userCris.setLogin("cris");
 			userCris.setPassword("12345");
+			userCris.setStatus(StatusType.OFFLINE.getCodigo());
 			userService.save(userCris);
 		}
 
@@ -51,6 +53,7 @@ public class UserServiceTest {
 			userFred = new User();
 			userFred.setLogin("fred");
 			userFred.setPassword("123456");
+			userFred.setStatus(StatusType.OFFLINE.getCodigo());
 			userService.save(userFred);
 		}
 
