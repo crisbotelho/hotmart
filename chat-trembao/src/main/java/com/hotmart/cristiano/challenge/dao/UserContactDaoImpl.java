@@ -69,4 +69,12 @@ public class UserContactDaoImpl implements UserContactDao {
 		query.setParameter("userLogin", userLogin);
 		return query.list();
 	}
+	
+	public List<UserContact> getContactByContact(String contactLogin) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM UserContact WHERE contact.login = :contactLogin";
+		Query query = session.createQuery(hql);
+		query.setParameter("contactLogin", contactLogin);
+		return query.list();
+	}
 }

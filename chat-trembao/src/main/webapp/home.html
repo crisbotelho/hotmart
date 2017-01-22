@@ -1,15 +1,15 @@
 <div ng-controller = "homeCtrl" class="jumbotron">
-	<h3>Principal</h3>
+	<h3>{{appName}}</h3>
 	<div class="alert alert-success">
 		{{message}}
 	</div>
 	
 	<table class="table table-striped">
 		<tr>
-			<th>Contato</th>
+			<th>Lista de Contatos</th>
 		</tr>
 		<tr ng-repeat="contact in contacts">
-			<td><button class="btn btn-primary" ng-click="openChat(contact.contactLogin)">{{contact.contactLogin}}</button></td>
+			<td><button class="btn btn-primary" ng-click="openChat(contact.id)">{{contact.contactLogin}}</button></td>
 		</tr>
 	</table>
 	<hr/>

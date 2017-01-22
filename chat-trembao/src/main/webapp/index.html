@@ -4,11 +4,12 @@
 		<title>Trem Bão/Entrar</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"></link>
 		<script src="js/angular.js"></script>
-		<script src="js/angular-route.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
 		<script src="js/module/app.js"></script>
 		<script src="js/config/config.js"></script>
 		<script src="js/controller/controller.js"></script>
 		<script src="js/controller/controllerHome.js"></script>
+		<script src="js/controller/cadastreUserController.js"></script>
 		<script>
 						
 			
@@ -34,9 +35,8 @@
 		</style>
 	</head>
 	<body >
-		<div ng-include="'login.html'"></div>
-		<div ng-include="'home.html'"></div>
-		<div ng-include="'chat.html'"></div>
+		<a ui-sref="login" class="btn btn-primary btn-block" role="button">Acessar Sistema</a>
+		<ui-view></ui-view>
 		<div ng-include="'footer.html'"></div>
 	</body>
 </html>

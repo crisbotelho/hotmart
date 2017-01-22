@@ -49,11 +49,19 @@ public class UserContactServiceImpl implements UserContactService {
 
 	public List<Contact> getContactByUser(String userLogin) {
 		List<UserContact> userContactList = userContactDao.getContactByUser(userLogin);
+		List<UserContact> contactUserList = userContactDao.getContactByContact(userLogin);
+		
 		List<Contact> contacts = new ArrayList<Contact>();
 		for(UserContact userContact : userContactList){
-			contacts.add(new Contact(userContact.getUser().getLogin(), 
+			contacts.add(new Contact(userContact.getId(), userContact.getUser().getLogin(), 
 					userContact.getContact().getLogin()));
 		}
+		
+		for(UserContact userContact : contactUserList){
+			contacts.add(new Contact(userContact.getId(), userContact.getContact().getLogin(), 
+					userContact.getUser().getLogin()));
+		}
+		
 		return contacts;
 	}
 	

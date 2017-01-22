@@ -1,8 +1,6 @@
 <div ng-controller = "loginCtrl" class="jumbotron">
-	<h3>{{app}}</h3>			
+	<h3>Acesso</h3>			
 	<hr/>
-	{{users}}
-	{{dataResponse}}
 	<form name="userForm">
 		<input class="form-control" type="text" ng-model="user.login" placeholder="Usuário" ng-required="true"/>
 		<input class="form-control" type="password" ng-model="user.password" placeholder="Senha" ng-required="true"/>
@@ -11,5 +9,5 @@
 		Por favor, preencha os campos de Usuário e Senha!
 	</div>
 	<button class="btn btn-primary btn-block" ng-click="doLogin(user)" ng-disabled="userForm.$invalid">Entrar</button>			
-	<a href="user.html" class="btn btn-primary btn-block" role="button">Cadastrar</a>
+	<a ui-sref="user" class="btn btn-primary btn-block" role="button">Cadastrar</a>
 </div>

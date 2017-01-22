@@ -11,4 +11,5 @@ public interface UserContactDao {
 	public UserContact getById(Long id);
 	public UserContact getByUserAndContact(String userLogin, String contactLogin);
 	public List<UserContact> getContactByUser(String userLogin);
+	public List<UserContact> getContactByContact(String contactLogin);
 }

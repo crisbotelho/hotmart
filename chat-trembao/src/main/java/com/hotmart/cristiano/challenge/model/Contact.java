@@ -8,11 +8,13 @@ public class Contact implements Serializable{
 	
 	public Contact (){}
 	
-	public Contact (String userLogin, String contactLogin){
+	public Contact (Long id, String userLogin, String contactLogin){
+		this.id = id;
 		this.userLogin = userLogin;
 		this.contactLogin = contactLogin;
 	}
 	
+	private Long id;
 	private String userLogin;
 	private String contactLogin;
 	public String getUserLogin() {
@@ -26,6 +28,14 @@ public class Contact implements Serializable{
 	}
 	public void setContactLogin(String contactLogin) {
 		this.contactLogin = contactLogin;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

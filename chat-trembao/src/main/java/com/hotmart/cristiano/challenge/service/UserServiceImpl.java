@@ -20,10 +20,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional(readOnly = false)
 	public void save(User user) {
+		System.out.println(user.getLogin());
 		User existUser = userDao.getByLogin(user.getLogin());
 		if(existUser == null) {
 			try {
 				user.setPassword(Criptografia.criptografarSenha(user.getPassword()));
+				System.out.println("Chamando salvar: ");
 				userDao.save(user);
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();

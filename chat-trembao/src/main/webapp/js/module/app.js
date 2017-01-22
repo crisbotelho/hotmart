@@ -1,1 +1,1 @@
-angular.module("chattrembao", ["ngRoute"]);
+angular.module("chattrembao", ["ui.router"]);

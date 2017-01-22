@@ -1,4 +1,4 @@
-angular.module("chattrembao").controller("loginCtrl", function($scope, $http){
+angular.module("chattrembao").controller("loginCtrl", function($scope, $http, $state){
 	$scope.app = "Entrar";
 	$scope.users = [{login: "cris", password: "123"}];
 	$scope.doLogin = function(user) {
@@ -7,6 +7,7 @@ angular.module("chattrembao").controller("loginCtrl", function($scope, $http){
 			$scope.users.push(angular.copy(user));
 			$scope.message = "Usuário " + user.login + " cadastrado com sucesso!";
 			$scope.dataResponse = response.data;
+			$state.go('home', {login: user.login});
 			delete $scope.user;
 		},
 		
