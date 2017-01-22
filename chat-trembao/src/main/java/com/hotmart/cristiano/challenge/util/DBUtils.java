@@ -27,19 +27,20 @@ public class DBUtils {
 			Connection connection = dataSource.getConnection();
 			Statement statement = connection.createStatement();
 			if(!existTable("USER", connection, statement)){
-//			statement.execute("DROP TABLE IF EXISTS USER");
+			statement.execute("DROP TABLE IF EXISTS USER");
 				System.out.println("Construindo base");
 			statement.executeUpdate(
 					"CREATE TABLE USER(" +
 							"ID INTEGER Primary key, " +
 							"LOGIN varchar(30) not null, " +
-							"PASSWORD varchar(30) not null)" 
+							"PASSWORD varchar(30) not null," +
+							"STATUS INTEGER not null DEFAULT 0)" 
 					);
 			
 			}
 			
 			if(!existTable("USER_CONTACT", connection, statement)){
-//			statement.execute("DROP TABLE IF EXISTS USER_CONTACT");
+			statement.execute("DROP TABLE IF EXISTS USER_CONTACT");
 			statement.executeUpdate(
 					"CREATE TABLE USER_CONTACT(" +
 							"ID INTEGER Primary key, " +

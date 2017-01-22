@@ -25,6 +25,9 @@ public class User implements Serializable{
 	
 	@Column(name = "PASSWORD")
 	private String password;
+	
+	@Column(name = "STATUS") //0 - offline; 1 - online
+	private Short status; 
 
 	public Long getId() {
 		return id;
@@ -78,6 +81,14 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", login=" + login + ", password=" + password + "]";
+	}
+
+	public Short getStatus() {
+		return status;
+	}
+
+	public void setStatus(Short status) {
+		this.status = status;
 	}
 	
 	

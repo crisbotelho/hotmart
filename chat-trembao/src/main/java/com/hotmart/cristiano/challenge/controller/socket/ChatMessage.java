@@ -1,5 +1,7 @@
 package com.hotmart.cristiano.challenge.controller.socket;
 
+import com.hotmart.cristiano.challenge.enumtype.MessageType;
+
 public class ChatMessage {
 
 	private String sender;

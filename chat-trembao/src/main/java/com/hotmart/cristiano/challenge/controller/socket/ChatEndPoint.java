@@ -15,6 +15,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hotmart.cristiano.challenge.enumtype.MessageType;
 
 @ServerEndpoint(value = "/chat")
 public class ChatEndPoint {

@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.hotmart.cristiano.challenge.enumtype.StatusType;
 import com.hotmart.cristiano.challenge.model.Contact;
 import com.hotmart.cristiano.challenge.model.User;
 import com.hotmart.cristiano.challenge.service.UserContactService;
@@ -49,7 +50,11 @@ UserContactService userContactService = null;
 	@Path("/adduser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void addProduct(User user) {
+	public void addUser(UserDto userDto) {
+		User user = new User();
+		user.setLogin(userDto.getLogin());
+		user.setPassword(userDto.getPassword());
+		user.setStatus(StatusType.OFFLINE.getCodigo());
 		getBeanUserService();
 		userService.save(user);
 	}
@@ -58,9 +63,20 @@ UserContactService userContactService = null;
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User login(User user){
+	public String login(UserDto userDto){
+		String success = null;
+		User user = new User();
+		user.setLogin(userDto.getLogin());
+		user.setPassword(userDto.getPassword());
 		getBeanUserService();
-		return userService.getByLoginAndPassword(user.getLogin(), user.getPassword());		
+		User userSuccess  = userService.getByLoginAndPassword(user.getLogin(), user.getPassword());
+		if(userSuccess != null){
+			userSuccess.setStatus(StatusType.ONLINE.getCodigo());
+			userService.update(userSuccess);
+			success = "S";
+		}
+		System.out.println(success);
+		return success;		
 	}
 	
 	@POST

@@ -20,7 +20,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional(readOnly = false)
 	public void save(User user) {
-		System.out.println(user.getLogin());
 		User existUser = userDao.getByLogin(user.getLogin());
 		if(existUser == null) {
 			try {
@@ -55,6 +54,11 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		return user;
+	}
+
+	@Transactional(readOnly = false)
+	public void update(User user) {
+		userDao.update(user);
 	}
 
 }

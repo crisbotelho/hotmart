@@ -1,6 +1,9 @@
 <div ng-controller = "loginCtrl" class="jumbotron">
 	<h3>Acesso</h3>			
 	<hr/>
+	<div class="alert alert-danger">
+		{{msgInvalidLogin}}
+	</div>
 	<form name="userForm">
 		<input class="form-control" type="text" ng-model="user.login" placeholder="Usuário" ng-required="true"/>
 		<input class="form-control" type="password" ng-model="user.password" placeholder="Senha" ng-required="true"/>
