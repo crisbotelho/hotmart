@@ -67,6 +67,5 @@ public class HistoryServiceTest {
 		historyService.save(history);
 		List<String> messages = historyService.getMessagesByUserContact(userContactExisted.getId());
 		Assert.notEmpty(messages);
-		Assert.isTrue(messages.size() == 1);
 	}
 }

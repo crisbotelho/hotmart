@@ -46,6 +46,20 @@ public class Chat {
 			log.info("Error: " + e.getMessage());
 		}
 	}
+	
+	public synchronized void sendMessageFromHystory(String message, Session session) {
+		if (session.isOpen()) {
+			sendMessage(message, session);
+		}
+//		List<Session> sessions = (List<Session>) chatMap.get(key);
+//		for(Session session : sessions) {
+//			Map<String, Object> properties = session.getUserProperties();
+//			String name2 = (String) properties.get("name");
+//			if (session.isOpen() && name2.equals(name)) {
+//				sendMessage(message, session);
+//			}
+//		}
+	}
 
 	public synchronized static Chat getChat() {
 		if (instance == null) { instance = new Chat(); }

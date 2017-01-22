@@ -43,7 +43,7 @@ angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $st
 	$scope.openChat = function(idUserContact, contactLogin) {		
 		
 		websocket.onopen = function() {
-            var message = { userContactId: idUserContact, messageType: 'OPEN', message: 'teste', sender: $stateParams.login };
+            var message = { userContactId: idUserContact, messageType: 'OPEN', message: 'teste', sender: $stateParams.login, receiver: '' };
             websocket.send(JSON.stringify(message));
         };
         
@@ -68,7 +68,7 @@ angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $st
             
         };
         
-        var message = { userContactId: idUserContact, messageType: 'OPEN', message: 'teste', sender: $stateParams.login };
+        var message = { userContactId: idUserContact, messageType: 'OPEN', message: 'teste', sender: $stateParams.login, receiver:'' };
         websocket.send(JSON.stringify(message));
         
         $scope.idSessao = idUserContact;
@@ -78,7 +78,8 @@ angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $st
 	
 	
 	$scope.sendMessage = function(idUserContact) {
-		var message = {  userContactId: $stateParams.idSessao, messageType: 'MESSAGE', message: $scope.chatMessage, sender: $stateParams.login };
+		var message = {  userContactId: $stateParams.idSessao, messageType: 'MESSAGE', message: $scope.chatMessage, 
+							sender: $stateParams.login, receiver: $stateParams.contactLogin };
         
         // Send a message through the web-socket
         websocket.send(JSON.stringify(message));	

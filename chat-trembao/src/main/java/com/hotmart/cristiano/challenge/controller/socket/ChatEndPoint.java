@@ -3,6 +3,7 @@ package com.hotmart.cristiano.challenge.controller.socket;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.websocket.CloseReason;
@@ -14,14 +15,42 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hotmart.cristiano.challenge.enumtype.MessageType;
+import com.hotmart.cristiano.challenge.model.History;
+import com.hotmart.cristiano.challenge.model.UserContact;
+import com.hotmart.cristiano.challenge.service.HistoryService;
+import com.hotmart.cristiano.challenge.service.UserContactService;
 
 @ServerEndpoint(value = "/chat")
 public class ChatEndPoint {
 	
+	UserContactService userContactService = null;
+	HistoryService historyService = null;
+	
 	private Logger log = Logger.getLogger(ChatEndPoint.class.getSimpleName());
 	private Chat chat = Chat.getChat();
+	
+	private void getBeanUserContactService(){
+		if(userContactService == null){
+		ApplicationContext context = 
+				new ClassPathXmlApplicationContext(
+						"/META-INF/spring/app-context.xml");
+		userContactService = context.getBean("userContactServiceImpl", UserContactService.class);
+		}
+	}
+	
+	private void getBeanHistoryService(){
+		if(historyService == null){
+		ApplicationContext context = 
+				new ClassPathXmlApplicationContext(
+						"/META-INF/spring/app-context.xml");
+		historyService = context.getBean("historyServiceImpl", HistoryService.class);
+		}
+	}
 	
 	@OnOpen
     public void open(final Session session, EndpointConfig config) {
@@ -42,12 +71,15 @@ public class ChatEndPoint {
 
         if (chatMessage.getMessageType().equals(MessageType.OPEN)) {
             chat.addChat(chatMessage.getUserContactId(), session);
+            addMessagesFromHistory(chatMessage.getUserContactId(), session);
         }
         else {
         	Date dateNow = new Date();
         	SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         	String date = formatDate.format(dateNow);
-            chat.sendMessage(chatMessage.getUserContactId(), date + "  " + chatMessage.getSender() + ": " + chatMessage.getMessage());
+        	String message = date + "  " + chatMessage.getSender() + ": " + chatMessage.getMessage();
+            chat.sendMessage(chatMessage.getUserContactId(), message);
+            saveHistory(chatMessage.getUserContactId(), message, chatMessage.getSender(), chatMessage.getReceiver());
         }
     }
 	
@@ -58,4 +90,23 @@ public class ChatEndPoint {
     @OnError
     public void onError(Session session, Throwable ex) { log.info("Error: " + ex.getMessage()); }
 
+    private void saveHistory(Long userContactId, String message, String sender, String receiver){
+    	getBeanUserContactService();
+    	getBeanHistoryService();
+    	UserContact userContact = userContactService.getById(userContactId);
+    	History history = new History();
+    	history.setSender(sender);
+    	history.setReceiver(receiver);
+    	history.setUserContact(userContact);
+    	history.setMessage(message);
+    	historyService.save(history);
+    }
+    
+    private void addMessagesFromHistory(Long userContactId, Session session){
+    	getBeanHistoryService();
+    	List<String> messages = historyService.getMessagesByUserContact(userContactId);
+    	for(String message : messages){
+    		chat.sendMessageFromHystory(message, session);
+    	}
+    }
 }

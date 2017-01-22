@@ -5,6 +5,7 @@ import com.hotmart.cristiano.challenge.enumtype.MessageType;
 public class ChatMessage {
 
 	private String sender;
+	private String receiver;
 	private Long userContactId;
 	private MessageType messageType;
     private String message;
@@ -31,5 +32,11 @@ public class ChatMessage {
 	}
 	public void setSender(String sender) {
 		this.sender = sender;
+	}
+	public String getReceiver() {
+		return receiver;
+	}
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
 	}
 }
