@@ -9,7 +9,7 @@
 			<th>Lista de Contatos</th>
 		</tr>
 		<tr ng-repeat="contact in contacts">
-			<td><button class="btn btn-primary" ng-click="openChat(contact.id)">{{contact.contactLogin}}</button></td>
+			<td><button class="btn btn-primary" ng-click="openChat(contact.id, contact.contactLogin)">{{contact.contactLogin}}</button></td>
 		</tr>
 	</table>
 	<hr/>

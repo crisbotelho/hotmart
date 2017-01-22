@@ -19,7 +19,7 @@ angular.module('chattrembao').config(['$stateProvider', '$urlRouterProvider',
 		templateUrl: 'home.html',
 	}).
 	state('chat', {
-		url: '/chat/:login/:idSessao',
+		url: '/chat/:login/:idSessao/:contactLogin',
 		templateUrl: 'chat.html',
 	});
 

@@ -1,5 +1,6 @@
 angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $state, $stateParams){
 	$scope.appName = 'Chat@' + $stateParams.login;
+	$scope.appChatName =  $stateParams.login + '@' + $stateParams.contactLogin;
 	$scope.contacts = [];
 	$scope.messages = [];
 	$scope.addContact = function(contact) {
@@ -37,14 +38,9 @@ angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $st
 		);
 	};
 	
-	$scope.showMwssage = function(eMessage) {
-		$scope.messages.push({message : "oi oi oi oi oi"});     
-    	delete $scope.chatMessage;
-	}
-	
 	var websocket = new WebSocket("ws://localhost:8080/chat-trembao/chat");
 	
-	$scope.openChat = function(idUserContact) {		
+	$scope.openChat = function(idUserContact, contactLogin) {		
 		
 		websocket.onopen = function() {
             var message = { userContactId: idUserContact, messageType: 'OPEN', message: 'teste', sender: $stateParams.login };
@@ -52,8 +48,6 @@ angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $st
         };
         
         websocket.onmessage = function(e) {
-        	console.log('on message: '+ e.data);
-        	console.log('messages: '+ $scope.messages);
         	var textAreaMessage = document.getElementById('message');
         	var msgContainer = document.getElementById('msgContainer');
         	 if (msgContainer.childNodes.length == 100) {
@@ -61,7 +55,6 @@ angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $st
              }
              
              var div = document.createElement('div');
-           //  div.className = 'msgrow';
              var textnode = document.createTextNode(e.data);
              div.appendChild(textnode); 
              msgContainer.appendChild(div);
@@ -79,12 +72,12 @@ angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $st
         websocket.send(JSON.stringify(message));
         
         $scope.idSessao = idUserContact;
-        $state.go('chat', {login: $stateParams.login, idSessao: idUserContact});
+        $scope.contactLogin = contactLogin;
+        $state.go('chat', {login: $stateParams.login, idSessao: idUserContact, contactLogin: contactLogin});
 	};
 	
 	
 	$scope.sendMessage = function(idUserContact) {
-		console.log("id sessao: " + $stateParams.idSessao);
 		var message = {  userContactId: $stateParams.idSessao, messageType: 'MESSAGE', message: $scope.chatMessage, sender: $stateParams.login };
         
         // Send a message through the web-socket

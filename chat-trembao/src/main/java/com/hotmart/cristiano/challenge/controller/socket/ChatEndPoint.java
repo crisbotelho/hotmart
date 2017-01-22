@@ -28,7 +28,6 @@ public class ChatEndPoint {
 	
 	@OnMessage
     public void onMessage(final Session session, final String messageJson) {
-		System.out.println("Message Json: " + messageJson);
         ObjectMapper mapper = new ObjectMapper();
         ChatMessage chatMessage = null;
         try {
