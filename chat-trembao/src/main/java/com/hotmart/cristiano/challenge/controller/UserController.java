@@ -1,5 +1,6 @@
 package com.hotmart.cristiano.challenge.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -55,6 +56,7 @@ UserContactService userContactService = null;
 		user.setLogin(userDto.getLogin());
 		user.setPassword(userDto.getPassword());
 		user.setStatus(StatusType.OFFLINE.getCodigo());
+		user.setLastLogout(new Date());
 		getBeanUserService();
 		userService.save(user);
 	}

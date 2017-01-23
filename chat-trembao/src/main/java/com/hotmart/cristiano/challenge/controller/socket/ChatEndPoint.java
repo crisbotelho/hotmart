@@ -79,7 +79,8 @@ public class ChatEndPoint {
         	String date = formatDate.format(dateNow);
         	String message = date + "  " + chatMessage.getSender() + ": " + chatMessage.getMessage();
             chat.sendMessage(chatMessage.getUserContactId(), message);
-            saveHistory(chatMessage.getUserContactId(), message, chatMessage.getSender(), chatMessage.getReceiver());
+            saveHistory(chatMessage.getUserContactId(), message, 
+            		chatMessage.getSender(), chatMessage.getReceiver(), dateNow);
         }
     }
 	
@@ -90,7 +91,7 @@ public class ChatEndPoint {
     @OnError
     public void onError(Session session, Throwable ex) { log.info("Error: " + ex.getMessage()); }
 
-    private void saveHistory(Long userContactId, String message, String sender, String receiver){
+    private void saveHistory(Long userContactId, String message, String sender, String receiver, Date dateNow){
     	getBeanUserContactService();
     	getBeanHistoryService();
     	UserContact userContact = userContactService.getById(userContactId);
@@ -99,6 +100,7 @@ public class ChatEndPoint {
     	history.setReceiver(receiver);
     	history.setUserContact(userContact);
     	history.setMessage(message);
+    	history.setDateHour(dateNow);
     	historyService.save(history);
     }
     

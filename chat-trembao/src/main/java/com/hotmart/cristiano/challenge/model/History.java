@@ -1,6 +1,7 @@
 package com.hotmart.cristiano.challenge.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "HISTORY")
@@ -35,6 +38,10 @@ public class History implements Serializable{
 	
 	@Column(name = "MESSAGE")
 	private String message;
+	
+	@Column(name = "DATEHOUR")
+	@Temporal(value=TemporalType.TIMESTAMP)
+	private Date dateHour;
 	
 	public Long getId() {
 		return id;
@@ -65,6 +72,12 @@ public class History implements Serializable{
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public Date getDateHour() {
+		return dateHour;
+	}
+	public void setDateHour(Date dateHour) {
+		this.dateHour = dateHour;
 	}
 	@Override
 	public int hashCode() {

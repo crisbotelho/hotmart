@@ -1,5 +1,6 @@
 package com.hotmart.cristiano.challenge.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,10 @@ public class HistoryServiceImpl implements HistoryService{
 
 	public List<String> getMessagesByUserContact(Long id) {
 		return historyDao.getMessagesByUserContact(id);
+	}
+	
+	public Date getMaxDate(Long id){
+		return historyDao.getMaxDate(id);
 	}
 
 }

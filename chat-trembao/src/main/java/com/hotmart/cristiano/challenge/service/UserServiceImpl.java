@@ -1,6 +1,7 @@
 package com.hotmart.cristiano.challenge.service;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,7 @@ public class UserServiceImpl implements UserService {
 	public void doLogOut(String userLogin) {
 		User user = userDao.getByLogin(userLogin);
 		user.setStatus(StatusType.OFFLINE.getCodigo());
+		user.setLastLogout(new Date());
 		userDao.update(user);
 	}
 

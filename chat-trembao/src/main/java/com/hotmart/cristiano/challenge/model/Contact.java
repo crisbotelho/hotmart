@@ -8,6 +8,13 @@ public class Contact implements Serializable{
 	
 	public Contact (){}
 	
+	public Contact (Long id, String userLogin, String contactLogin, String offlineMessages){
+		this.id = id;
+		this.userLogin = userLogin;
+		this.contactLogin = contactLogin;
+		this.offlineMessages = offlineMessages;
+	}
+	
 	public Contact (Long id, String userLogin, String contactLogin){
 		this.id = id;
 		this.userLogin = userLogin;
@@ -17,6 +24,8 @@ public class Contact implements Serializable{
 	private Long id;
 	private String userLogin;
 	private String contactLogin;
+	private String offlineMessages;
+	
 	public String getUserLogin() {
 		return userLogin;
 	}
@@ -36,6 +45,14 @@ public class Contact implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getOfflineMessages() {
+		return offlineMessages;
+	}
+
+	public void setOfflineMessages(String offlineMessages) {
+		this.offlineMessages = offlineMessages;
 	}
 	
 	

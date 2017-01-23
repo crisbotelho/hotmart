@@ -5,7 +5,7 @@ angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $st
 	$scope.offlineContacts = [];
 	$scope.messages = [];
 	$scope.addContact = function(contact) {
-		$http.post("http://localhost:8080/chat-trembao/rest/user/addcontact", {userLogin: $stateParams.login, contactLogin: contact.contactLogin}).then(function(response) {
+		$http.post("http://localhost:8080/chat-trembao/rest/user/addcontact", {id: 0, userLogin: $stateParams.login, contactLogin: contact.contactLogin, offlineMessages: ''}).then(function(response) {
 			console.log("Successful: response from submitting data to server was: " + response.data);
 			$scope.contacts.push(angular.copy(contact));
 			var msgContainer = document.getElementById('msgContainer');            

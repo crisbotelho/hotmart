@@ -1,5 +1,6 @@
 package com.hotmart.cristiano.challenge.test;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -50,6 +51,7 @@ public class UserContactServiceTest {
 			user.setLogin("ana");
 			user.setPassword("12345");
 			user.setStatus(StatusType.OFFLINE.getCodigo());
+			user.setLastLogout(new Date());
 			userService.save(user);
 		}
 
@@ -59,6 +61,7 @@ public class UserContactServiceTest {
 			user2.setLogin("fred");
 			user2.setPassword("123456");
 			user2.setStatus(StatusType.OFFLINE.getCodigo());
+			user2.setLastLogout(new Date());
 			userService.save(user2);
 		}
 

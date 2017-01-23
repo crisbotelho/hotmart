@@ -1,6 +1,7 @@
 package com.hotmart.cristiano.challenge.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "USER")
@@ -28,6 +31,10 @@ public class User implements Serializable{
 	
 	@Column(name = "STATUS") //0 - offline; 1 - online
 	private Short status; 
+	
+	@Column(name = "LASTLOGOUT")
+	@Temporal(value=TemporalType.TIMESTAMP)
+	private Date lastLogout;
 
 	public Long getId() {
 		return id;
@@ -89,6 +96,14 @@ public class User implements Serializable{
 
 	public void setStatus(Short status) {
 		this.status = status;
+	}
+
+	public Date getLastLogout() {
+		return lastLogout;
+	}
+
+	public void setLastLogout(Date lastLogout) {
+		this.lastLogout = lastLogout;
 	}
 	
 	

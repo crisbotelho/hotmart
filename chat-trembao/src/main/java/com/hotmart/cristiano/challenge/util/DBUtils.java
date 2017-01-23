@@ -5,8 +5,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.sql.DataSource;
 import javax.annotation.PostConstruct;
@@ -33,6 +31,7 @@ public class DBUtils {
 					"CREATE TABLE USER(" +
 							"ID INTEGER Primary key, " +
 							"LOGIN varchar(30) not null, " +
+							"LASTLOGOUT datetime not null, " +
 							"PASSWORD varchar(30) not null," +
 							"STATUS INTEGER not null DEFAULT 0)" 
 					);
@@ -62,6 +61,7 @@ public class DBUtils {
 								"SENDER varchar(30) not null, " +
 								"RECEIVER varchar(30) not null, " +
 								"MESSAGE varchar(500) not null, " +
+								"DATEHOUR datetime not null, " +
 								"USER_CONTACT_ID INTEGER not null, " +
 								"CONSTRAINT FK_HISTORY_USER_CONTACT FOREIGN KEY (USER_CONTACT_ID) " +
 								"REFERENCES USER_CONTACT (ID))" 
@@ -80,24 +80,12 @@ public class DBUtils {
 	}
 	
 	public boolean existTable(String tableName, Connection con, Statement st) throws ClassNotFoundException, SQLException {
-//        List<String> list = new ArrayList<String>();
 		DatabaseMetaData dbm = con.getMetaData();
 		ResultSet tables = dbm.getTables(null, null, tableName, null);
-//        ResultSet rs = st.executeQuery("SELECT * FROM dbo.SYSOBJECTS WHERE XTYPE = 'U' AND NAME = 'USER'");
         if(tables.next()){
         	return true;
         } else{
         	return false;
         }
-//        while (rs.next()) {
-//            String listofDatabases = rs.getString("TABLE_CAT");
-//            list.add(listofDatabases);
-//            System.out.println("database list: " + listofDatabases);
-//        }
-//        if (list.contains(nomeBD)) {
-//            return true;
-//        } else {
-//            return false;
-//        }
     }
 }
