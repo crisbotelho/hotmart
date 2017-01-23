@@ -7,8 +7,12 @@ angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $st
 		$http.post("http://localhost:8080/chat-trembao/rest/user/addcontact", {userLogin: $stateParams.login, contactLogin: contact.contactLogin}).then(function(response) {
 			console.log("Successful: response from submitting data to server was: " + response.data);
 			$scope.contacts.push(angular.copy(contact));
-			$scope.message = "Contato " + contact.contactLogin + " adicionado com sucesso!";
-		//	$scope.dataResponse = response.data;
+			var msgContainer = document.getElementById('msgContainer');            
+            var div = document.createElement('div');
+            div.setAttribute('class', 'alert alert-success');
+            var textnode = document.createTextNode("Contato " + contact.contactLogin + " adicionado com sucesso!");
+            div.appendChild(textnode); 
+            msgContainer.appendChild(div);
 			delete $scope.contact;
 		},
 		
