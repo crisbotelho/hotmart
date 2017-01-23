@@ -86,19 +86,13 @@ UserContactService userContactService = null;
 	public void addContact(Contact contatc) {
 		getBeanUserContactService();
 		userContactService.save(contatc);
-//		System.out.println("Teste addConatct");
 	}
 	
 	@GET
 	@Path("/listcontacts/{login}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Contact> listProductWithChildProducts(@PathParam("login") String login) {
+	public List<Contact> listContacts(@PathParam("login") String login) {
 		getBeanUserContactService();
-//		List<Contact> list = new ArrayList<Contact>();
-//		list.add(new Contact(login, "B"));
-//		list.add(new Contact(login, "C"));
-//		list.add(new Contact(login, "A"));
-//		list.add(new Contact(login, "D"));
 		return userContactService.getContactByUser(login);
 	}
 	
