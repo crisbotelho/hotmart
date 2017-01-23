@@ -75,7 +75,6 @@ UserContactService userContactService = null;
 			userService.update(userSuccess);
 			success = "S";
 		}
-		System.out.println(success);
 		return success;		
 	}
 	
