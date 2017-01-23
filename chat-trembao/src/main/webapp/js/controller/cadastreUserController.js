@@ -1,10 +1,13 @@
 angular.module("chattrembao").controller("userCtrl", function($scope, $http, $state){
-	$scope.users = [];
 	$scope.addUser = function(user) {
 		$http.post("http://localhost:8080/chat-trembao/rest/user/adduser", user).then(function(response) {
 			console.log("Successful: response from submitting data to server was: " + response);
-			$scope.users.push(angular.copy(user));
-			$scope.message = "Usuário " + user.login + " cadastrado com sucesso!";
+			var msgContainer = document.getElementById('msgContainer');            
+            var div = document.createElement('div');
+            div.setAttribute('class', 'alert alert-success');
+            var textnode = document.createTextNode("Usuário " + user.login + " cadastrado com sucesso!");
+            div.appendChild(textnode); 
+            msgContainer.appendChild(div);
 			delete $scope.user;
 			$state.go('login');
 		},
