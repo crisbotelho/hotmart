@@ -47,9 +47,9 @@ public class UserContactServiceImpl implements UserContactService {
 		return userContactDao.getById(id);
 	}
 
-	public List<Contact> getContactByUser(String userLogin) {
-		List<UserContact> userContactList = userContactDao.getContactByUser(userLogin);
-		List<UserContact> contactUserList = userContactDao.getContactByContact(userLogin);
+	public List<Contact> getContactByUser(String userLogin, Short statusId) {
+		List<UserContact> userContactList = userContactDao.getContactByUser(userLogin, statusId);
+		List<UserContact> contactUserList = userContactDao.getContactByContact(userLogin, statusId);
 		
 		List<Contact> contacts = new ArrayList<Contact>();
 		for(UserContact userContact : userContactList){

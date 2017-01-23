@@ -10,6 +10,6 @@ public interface UserContactService {
 	public void save(Contact contact);
 	public List<UserContact> getAll();
 	public UserContact getById(Long id);
-	public List<Contact> getContactByUser(String userLogin);
+	public List<Contact> getContactByUser(String userLogin, Short statusId);
 	public UserContact getByUserAndContact(String userLogin, String contactLogin);
 }

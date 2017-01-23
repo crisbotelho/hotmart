@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hotmart.cristiano.challenge.dao.UserDao;
+import com.hotmart.cristiano.challenge.enumtype.StatusType;
 import com.hotmart.cristiano.challenge.model.User;
 import com.hotmart.cristiano.challenge.util.Criptografia;
 
@@ -58,6 +59,13 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional(readOnly = false)
 	public void update(User user) {
+		userDao.update(user);
+	}
+
+	@Transactional(readOnly = false)
+	public void doLogOut(String userLogin) {
+		User user = userDao.getByLogin(userLogin);
+		user.setStatus(StatusType.OFFLINE.getCodigo());
 		userDao.update(user);
 	}
 

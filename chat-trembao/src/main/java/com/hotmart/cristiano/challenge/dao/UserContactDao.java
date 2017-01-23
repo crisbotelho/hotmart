@@ -10,6 +10,6 @@ public interface UserContactDao {
 	public List<UserContact> getAll();
 	public UserContact getById(Long id);
 	public UserContact getByUserAndContact(String userLogin, String contactLogin);
-	public List<UserContact> getContactByUser(String userLogin);
-	public List<UserContact> getContactByContact(String contactLogin);
+	public List<UserContact> getContactByUser(String userLogin, Short statusId);
+	public List<UserContact> getContactByContact(String contactLogin, Short statusId);
 }

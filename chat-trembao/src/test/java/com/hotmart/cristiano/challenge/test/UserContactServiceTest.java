@@ -37,7 +37,8 @@ public class UserContactServiceTest {
 		Assert.notNull(userContact2);
 		Assert.isTrue(userContact2.getUser().getLogin().equals("ana"));
 		Assert.isTrue(userContact2.getContact().getLogin().equals("fred"));
-		List<Contact> listUserContact = userContactService.getContactByUser("ana");
+		List<Contact> listUserContact = userContactService.getContactByUser("ana", 
+				StatusType.OFFLINE.getCodigo());
 		Assert.notEmpty(listUserContact);
 		
 	}

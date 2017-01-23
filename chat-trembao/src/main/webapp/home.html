@@ -5,9 +5,18 @@
 	
 	<table class="table table-striped">
 		<tr>
-			<th>Lista de Contatos</th>
+			<th>Contatos ONLINE</th>
 		</tr>
-		<tr ng-repeat="contact in contacts">
+		<tr ng-repeat="contact in onlineContacts">
+			<td><button class="btn btn-primary" ng-click="openChat(contact.id, contact.contactLogin)">{{contact.contactLogin}}</button></td>
+		</tr>
+	</table>
+	<hr/>
+	<table class="table table-striped">
+		<tr>
+			<th>Contatos OFFLINE</th>
+		</tr>
+		<tr ng-repeat="contact in offlineContacts">
 			<td><button class="btn btn-primary" ng-click="openChat(contact.id, contact.contactLogin)">{{contact.contactLogin}}</button></td>
 		</tr>
 	</table>
@@ -21,4 +30,5 @@
 	</div>
 	<button class="btn btn-primary btn-block" ng-click="addContact(contact)" ng-disabled="homeForm.$invalid">Adicionar</button>
 	<button class="btn btn-primary btn-block" ng-click="listContacts()" >Listar Contatos</button>
+	<button class="btn btn-primary btn-block" ng-click="doLogOut()" >Sair</button>
 </div>

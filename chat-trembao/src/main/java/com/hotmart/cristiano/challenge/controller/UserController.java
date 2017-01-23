@@ -82,17 +82,34 @@ UserContactService userContactService = null;
 	@Path("/addcontact")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void addContact(Contact contatc) {
+	public void addContact(Contact contact) {
 		getBeanUserContactService();
-		userContactService.save(contatc);
+		userContactService.save(contact);
 	}
 	
 	@GET
-	@Path("/listcontacts/{login}")
+	@Path("/listonlinecontacts/{login}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Contact> listContacts(@PathParam("login") String login) {
+	public List<Contact> listOnlineContacts(@PathParam("login") String login) {
 		getBeanUserContactService();
-		return userContactService.getContactByUser(login);
+		return userContactService.getContactByUser(login, StatusType.ONLINE.getCodigo());
+	}
+	
+	@GET
+	@Path("/listofflinecontacts/{login}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Contact> listOfflineContacts(@PathParam("login") String login) {
+		getBeanUserContactService();
+		return userContactService.getContactByUser(login, StatusType.OFFLINE.getCodigo());
+	}
+	
+	@POST
+	@Path("/dologout")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public void doLogOut(Contact contact) {
+		getBeanUserService();
+		userService.doLogOut(contact.getUserLogin());
 	}
 	
 }
