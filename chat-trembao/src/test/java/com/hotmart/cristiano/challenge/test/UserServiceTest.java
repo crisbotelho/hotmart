@@ -29,13 +29,16 @@ public class UserServiceTest {
 		User user = userService.getByLogin("cris");
 		Assert.notNull(user);
 		Assert.isTrue(user.getLogin().equals("cris"));
-		System.out.println("user: " + user);
+		user.setStatus(StatusType.ONLINE.getCodigo());		
+		userService.update(user);
+		user = userService.getByLogin("cris");
+		Assert.isTrue(user.getStatus().equals(StatusType.ONLINE.getCodigo()));
 		User user2 = userService.getByLoginAndPassword("cris", "12345");
-		System.out.println(user2);
-		Assert.notNull(user2);
-		
+		Assert.notNull(user2);		
 		User user3 = userService.getByLoginAndPassword("cris", "123456");
 		Assert.isNull(user3);
+		User user4 = userService.getById(1l);
+		Assert.notNull(user4);
 	}
 
 	public void creatUSer(){
