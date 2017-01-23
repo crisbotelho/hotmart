@@ -1,8 +1,7 @@
 ﻿<div ng-controller = "loginCtrl" class="jumbotron">
 	<h3>Acesso</h3>			
 	<hr/>
-	<div class="alert alert-danger">
-		{{msgInvalidLogin}}
+	<div id="msgContainer" style="margin-bottom:20px">
 	</div>
 	<form name="userForm">
 		<input class="form-control" type="text" ng-model="user.login" placeholder="Usu&aacute;rio" ng-required="true"/>

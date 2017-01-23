@@ -7,7 +7,13 @@ angular.module("chattrembao").controller("loginCtrl", function($scope, $http, $s
 				$state.go('home', {login: user.login});
 				delete $scope.user;
 			} else {
-				$scope.msgInvalidLogin = 'Usuário e/ou senha inválidos!';
+	        	var msgContainer = document.getElementById('msgContainer');
+	             
+	             var div = document.createElement('div');
+	             div.setAttribute('class', 'alert alert-danger');
+	             var textnode = document.createTextNode('Usuário e/ou senha inválidos!');
+	             div.appendChild(textnode); 
+	             msgContainer.appendChild(div);
 			}
 		},
 		

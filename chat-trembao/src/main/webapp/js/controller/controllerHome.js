@@ -84,5 +84,6 @@ angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $st
         // Send a message through the web-socket
         websocket.send(JSON.stringify(message));	
 	};
-	
+	$scope.listContacts();
 });
+
