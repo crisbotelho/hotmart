@@ -19,9 +19,13 @@ import com.hotmart.cristiano.challenge.model.Contact;
 import com.hotmart.cristiano.challenge.model.User;
 import com.hotmart.cristiano.challenge.service.UserContactService;
 import com.hotmart.cristiano.challenge.service.UserService;
+import com.sun.research.ws.wadl.Response;
+import com.wordnik.swagger.annotations.*;
 
 //@Controller
 @Path("/user")
+@Api(value = "/chat-trembao", description = "Rest api for do operations on admin", produces = MediaType.APPLICATION_JSON)
+@Produces({ MediaType.APPLICATION_JSON })
 public class UserController {
 
 //	@Autowired
@@ -51,6 +55,12 @@ UserContactService userContactService = null;
 	@Path("/adduser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Verifica se o usuário e senha existem", httpMethod = "POST", notes = "Verifica se o usuário e senha existem", response = Response.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "login encontrado"),
+	    @ApiResponse(code = 404, message = "login não encontrado"),
+	    @ApiResponse(code = 500, message = "Erro interno em função da decodificação dos dados"),
+	    @ApiResponse(code = 400, message = "Erro no request em função da decodificação dos dados"),
+	    @ApiResponse(code = 412, message = "Dados obrigatórios não encontrados") })
 	public void addUser(UserDto userDto) {
 		User user = new User();
 		user.setLogin(userDto.getLogin());
@@ -65,6 +75,12 @@ UserContactService userContactService = null;
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Verifica se o usuário e senha existem", httpMethod = "POST", notes = "Verifica se o usuário e senha existem", response = Response.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "login encontrado"),
+	    @ApiResponse(code = 404, message = "login não encontrado"),
+	    @ApiResponse(code = 500, message = "Erro interno em função da decodificação dos dados"),
+	    @ApiResponse(code = 400, message = "Erro no request em função da decodificação dos dados"),
+	    @ApiResponse(code = 412, message = "Dados obrigatórios não encontrados") })
 	public String login(UserDto userDto){
 		String success = null;
 		User user = new User();
@@ -84,6 +100,12 @@ UserContactService userContactService = null;
 	@Path("/addcontact")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Adiciona contato", httpMethod = "POST", notes = "Adiciona um contato a um usuário", response = Response.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "addcontact encontrado"),
+	    @ApiResponse(code = 404, message = "addcontact não encontrado"),
+	    @ApiResponse(code = 500, message = "Erro interno em função da decodificação dos dados"),
+	    @ApiResponse(code = 400, message = "Erro no request em função da decodificação dos dados"),
+	    @ApiResponse(code = 412, message = "Dados obrigatórios não encontrados") })
 	public void addContact(Contact contact) {
 		getBeanUserContactService();
 		userContactService.save(contact);
@@ -92,6 +114,12 @@ UserContactService userContactService = null;
 	@GET
 	@Path("/listonlinecontacts/{login}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Obtém lista de contatos onlines", httpMethod = "GET", notes = "Busca os contatos onlines de acordo com o login do usuário", response = Response.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "listofflinecontacts encontrado"),
+	    @ApiResponse(code = 404, message = "listofflinecontacts não encontrado"),
+	    @ApiResponse(code = 500, message = "Erro interno em função da decodificação dos dados"),
+	    @ApiResponse(code = 400, message = "Erro no request em função da decodificação dos dados"),
+	    @ApiResponse(code = 412, message = "Dados obrigatórios não encontrados") })
 	public List<Contact> listOnlineContacts(@PathParam("login") String login) {
 		getBeanUserContactService();
 		return userContactService.getContactByUser(login, StatusType.ONLINE.getCodigo());
@@ -100,6 +128,12 @@ UserContactService userContactService = null;
 	@GET
 	@Path("/listofflinecontacts/{login}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Obtém lista de contatos offlines", httpMethod = "GET", notes = "Busca os contatos offlines de acordo com o login do usuário", response = Response.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "listofflinecontacts encontrado"),
+	    @ApiResponse(code = 404, message = "listofflinecontacts não encontrado"),
+	    @ApiResponse(code = 500, message = "Erro interno em função da decodificação dos dados"),
+	    @ApiResponse(code = 400, message = "Erro no request em função da decodificação dos dados"),
+	    @ApiResponse(code = 412, message = "Dados obrigatórios não encontrados") })
 	public List<Contact> listOfflineContacts(@PathParam("login") String login) {
 		getBeanUserContactService();
 		return userContactService.getContactByUser(login, StatusType.OFFLINE.getCodigo());
@@ -109,6 +143,12 @@ UserContactService userContactService = null;
 	@Path("/dologout")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Sai do sistema", httpMethod = "POST", notes = "Atualiza usuário sinalizando que o mesmo está Offline", response = Response.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "dologout encontrado"),
+	    @ApiResponse(code = 404, message = "dologout não encontrado"),
+	    @ApiResponse(code = 500, message = "Erro interno em função da decodificação dos dados"),
+	    @ApiResponse(code = 400, message = "Erro no request em função da decodificação dos dados"),
+	    @ApiResponse(code = 412, message = "Dados obrigatórios não encontrados") })
 	public void doLogOut(Contact contact) {
 		getBeanUserService();
 		userService.doLogOut(contact.getUserLogin());
