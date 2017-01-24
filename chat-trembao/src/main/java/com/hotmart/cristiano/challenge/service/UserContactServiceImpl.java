@@ -58,21 +58,13 @@ public class UserContactServiceImpl implements UserContactService {
 		List<UserContact> contactUserList = userContactDao.getContactByContact(userLogin, statusId);
 		
 		List<Contact> contacts = new ArrayList<Contact>();
-		for(UserContact userContact : userContactList){
-			Date lastLogout = userContact.getUser().getLastLogout();
-			Contact contact = null;
-			Date MaxHistory = historyDao.getMaxDate(userContact.getId());
-			System.out.println("lastLogout: " + lastLogout);
-			System.out.println("max: " + MaxHistory);
-			if(MaxHistory != null  && lastLogout.before(MaxHistory))
-				contact  = new Contact(userContact.getId(), userContact.getUser().getLogin(), 
-						userContact.getContact().getLogin(), OfflineMessage.SIM.toString());
-			else
-				contact = new Contact(userContact.getId(), userContact.getUser().getLogin(), 
-						userContact.getContact().getLogin(), OfflineMessage.NAO.toString());
-				contacts.add(contact);
-		}
+		createContactsOfUser(userContactList, contacts);
+		createContactsOfContact(contactUserList, contacts);
 		
+		return contacts;
+	}
+
+	private void createContactsOfContact(List<UserContact> contactUserList, List<Contact> contacts) {
 		for(UserContact userContact : contactUserList){
 			Date lastLogout = userContact.getContact().getLastLogout();
 			Contact contact = null;
@@ -85,8 +77,21 @@ public class UserContactServiceImpl implements UserContactService {
 						userContact.getUser().getLogin(),  OfflineMessage.NAO.toString());
 			contacts.add(contact);
 		}
-		
-		return contacts;
+	}
+
+	private void createContactsOfUser(List<UserContact> userContactList, List<Contact> contacts) {
+		for(UserContact userContact : userContactList){
+			Date lastLogout = userContact.getUser().getLastLogout();
+			Contact contact = null;
+			Date MaxHistory = historyDao.getMaxDate(userContact.getId());
+			if(MaxHistory != null  && lastLogout.before(MaxHistory))
+				contact  = new Contact(userContact.getId(), userContact.getUser().getLogin(), 
+						userContact.getContact().getLogin(), OfflineMessage.SIM.toString());
+			else
+				contact = new Contact(userContact.getId(), userContact.getUser().getLogin(), 
+						userContact.getContact().getLogin(), OfflineMessage.NAO.toString());
+				contacts.add(contact);
+		}
 	}
 
 	public UserContact getByUserAndContact(String userLogin, String contactLogin) {

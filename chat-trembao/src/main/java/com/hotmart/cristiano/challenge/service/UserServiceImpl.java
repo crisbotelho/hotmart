@@ -26,7 +26,6 @@ public class UserServiceImpl implements UserService {
 		if(existUser == null) {
 			try {
 				user.setPassword(Criptografia.criptografarSenha(user.getPassword()));
-				System.out.println("Chamando salvar: ");
 				userDao.save(user);
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
