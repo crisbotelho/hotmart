@@ -11,7 +11,7 @@
 		<tr ng-repeat="contact in onlineContacts">
 			<td><button class="btn btn-primary" ng-click="openChat(contact.id, contact.contactLogin)">{{contact.contactLogin}}</button></td>
 			<td><div class="alert alert-warning" ng-if="contact.offlineMessages == 'SIM'">
-					Esxitem mensagens n&atilde;o lidas!
+					Existem mensagens n&atilde;o lidas!
 				</div>
 			</td>
 		</tr>
@@ -20,6 +20,7 @@
 	<table class="table table-striped">
 		<tr>
 			<th>Contatos OFFLINE</th>
+			<th></th>
 		</tr>
 		<tr ng-repeat="contact in offlineContacts">
 			<td><button class="btn btn-primary" ng-click="openChat(contact.id, contact.contactLogin)">{{contact.contactLogin}}</button></td>

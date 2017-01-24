@@ -7,7 +7,6 @@ angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $st
 	$scope.addContact = function(contact) {
 		$http.post("http://localhost:8080/chat-trembao/rest/user/addcontact", {id: 0, userLogin: $stateParams.login, contactLogin: contact.contactLogin, offlineMessages: ''}).then(function(response) {
 			console.log("Successful: response from submitting data to server was: " + response.data);
-			$scope.contacts.push(angular.copy(contact));
 			var msgContainer = document.getElementById('msgContainer');            
             var div = document.createElement('div');
             div.setAttribute('class', 'alert alert-success');
@@ -15,6 +14,7 @@ angular.module("chattrembao").controller("homeCtrl", function($scope, $http, $st
             div.appendChild(textnode); 
             msgContainer.appendChild(div);
 			delete $scope.contact;
+			$scope.listContacts();
 		},
 		
 		function (response) {
